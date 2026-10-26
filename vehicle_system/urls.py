@@ -18,10 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from inventory.views import home_view
-from . import views  
+from inventory import views 
+from django.views.generic import TemplateView  
 
 urlpatterns = [
-    path('', home_view, name='home'),
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('', views.home, name='home'),
 
     path('admin/', admin.site.urls),
