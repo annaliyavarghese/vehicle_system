@@ -9,7 +9,7 @@ router.register(r'vehicles', VehicleViewSet, basename='vehicle')
 router.register(r'bookings', BookingViewSet, basename='booking')
 
 urlpatterns = [
-    path('', home_view, name='home'), 
+    path('user/', home_view, name='user'), 
 
     path('', include(router.urls)),
 
