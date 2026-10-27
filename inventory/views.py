@@ -11,7 +11,8 @@ from django.http import HttpResponse
 def home_view(request):
     return HttpResponse("<h1>Welcome to Vehicle System API</h1><p>Use /api/ or /admin/ to proceed.</p>")
 
-
+def home(request):
+    return render(request, 'index.html')
 
 class VehicleViewSet(viewsets.ModelViewSet):
     queryset = Vehicle.objects.all()
