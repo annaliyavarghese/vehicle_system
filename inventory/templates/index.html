@@ -4,38 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velora | Premium Vehicle Rental</title>
+    <title>Velora | Vehicle Rental</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #f5f7fb;
+            --primary: #2457d6;
+            --primary-dark: #1945b2;
+            --navy: #14213b;
+            --background: #f5f7fb;
             --white: #ffffff;
-            --navy: #101c35;
-            --navy-light: #192946;
-            --blue: #3867f5;
-            --blue-light: #edf2ff;
-            --text: #17243b;
-            --muted: #7c879b;
-            --border: #e8ecf3;
-            --green: #14845b;
-            --red: #d94151;
-            --radius: 18px;
+            --text: #18243b;
+            --muted: #78849a;
+            --border: #e4e9f1;
+            --success: #147d52;
+            --danger: #c93646;
+            --radius: 14px;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
+            font-family: "DM Sans", sans-serif;
+            background: var(--background);
             color: var(--text);
+            line-height: 1.5;
         }
 
         button, input, select {
@@ -46,113 +44,86 @@
             cursor: pointer;
         }
 
-        .layout {
-            min-height: 100vh;
-        }
-
         .sidebar {
             position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            width: 245px;
+            inset: 0 auto 0 0;
+            width: 230px;
             padding: 30px 20px;
             background: var(--navy);
             color: white;
             display: flex;
             flex-direction: column;
-            z-index: 20;
+            z-index: 10;
         }
 
         .brand {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            padding: 0 10px 34px;
-        }
-
-        .brand-icon {
-            width: 43px;
-            height: 43px;
-            display: grid;
-            place-items: center;
-            background: var(--blue);
-            border-radius: 13px;
-            font-size: 23px;
-        }
-
-        .brand h2 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 22px;
+            font: 800 25px "Manrope", sans-serif;
             letter-spacing: -1px;
+            padding: 0 10px;
         }
 
-        .brand small {
-            display: block;
-            color: #a6b4d0;
+        .brand span {
+            color: #8eafff;
+        }
+
+        .brand-subtitle {
+            padding: 4px 10px 35px;
+            color: #9eacc4;
             font-size: 10px;
             letter-spacing: 2px;
-            margin-top: 2px;
         }
 
-        .nav-label {
-            color: #8190ad;
+        .nav-title {
+            margin: 0 10px 12px;
+            color: #8e9bb2;
             font-size: 10px;
-            letter-spacing: 1.8px;
-            padding: 0 12px;
-            margin-bottom: 12px;
+            letter-spacing: 1.5px;
         }
 
         .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            padding: 13px 14px;
-            border-radius: 11px;
-            color: #bdc8dc;
-            text-decoration: none;
-            margin-bottom: 6px;
-            font-size: 13px;
-        }
-
-        .nav-link.active {
-            background: #26385c;
-            color: white;
-        }
-
-        .nav-link span {
-            font-size: 18px;
-        }
-
-        .sidebar-bottom {
-            margin-top: auto;
-            border-top: 1px solid #2b3850;
-            padding: 20px 10px 0;
-            color: #aebbd0;
-            font-size: 12px;
-            line-height: 1.8;
-        }
-
-        .sidebar-bottom strong {
-            color: white;
             display: block;
+            padding: 12px 13px;
+            margin-bottom: 6px;
+            color: #c5cee0;
+            border-radius: 8px;
             font-size: 13px;
+            text-decoration: none;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #263958;
+            color: white;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 10px 0;
+            border-top: 1px solid #30405b;
+            color: #aab7cc;
+            font-size: 11px;
+        }
+
+        .sidebar-footer strong {
+            display: block;
+            color: white;
+            font-size: 13px;
+            margin-bottom: 5px;
         }
 
         .main {
-            margin-left: 245px;
+            margin-left: 230px;
             min-height: 100vh;
         }
 
         .topbar {
-            height: 78px;
-            padding: 0 38px;
-            background: white;
-            border-bottom: 1px solid var(--border);
+            height: 72px;
+            padding: 0 36px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            background: white;
+            border-bottom: 1px solid var(--border);
         }
 
         .breadcrumb {
@@ -164,130 +135,56 @@
             color: var(--text);
         }
 
-        .top-actions {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .status-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 13px;
-            background: #eaf8f1;
-            border-radius: 30px;
-            color: var(--green);
+        .topbar-label {
+            padding: 8px 12px;
+            border-radius: 7px;
+            background: #eef3ff;
+            color: var(--primary);
             font-size: 11px;
             font-weight: 700;
         }
 
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #19a873;
-        }
-
-        .avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            background: #e8edff;
-            color: var(--blue);
-            font-weight: 800;
-        }
-
         .content {
-            max-width: 1500px;
+            max-width: 1450px;
             margin: auto;
-            padding: 34px 38px 50px;
+            padding: 32px 36px 45px;
         }
 
         .hero {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(115deg, #142441, #253f70);
+            padding: 38px 40px;
+            background: linear-gradient(115deg, #14213b, #263f70);
             color: white;
-            border-radius: 22px;
-            padding: 39px 42px;
-            min-height: 225px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 25px;
-            margin-bottom: 27px;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border: 1px solid #ffffff15;
-            border-radius: 50%;
-            right: 60px;
-            top: -160px;
-            box-shadow: 0 0 0 40px #ffffff08, 0 0 0 80px #ffffff05;
-        }
-
-        .hero-copy {
-            position: relative;
-            z-index: 2;
-            max-width: 520px;
+            border-radius: 18px;
+            margin-bottom: 25px;
         }
 
         .eyebrow {
-            color: #b9cbff;
+            color: #b6caff;
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .hero h1 {
-            font-family: 'Manrope', sans-serif;
-            font-size: clamp(26px, 3vw, 39px);
-            line-height: 1.2;
-            letter-spacing: -1.5px;
+            max-width: 620px;
+            font: 800 clamp(27px, 3vw, 38px)/1.25 "Manrope", sans-serif;
+            letter-spacing: -1.3px;
             margin-bottom: 13px;
         }
 
         .hero p {
-            color: #c3cde0;
+            max-width: 540px;
+            color: #c6d0e2;
             font-size: 13px;
             line-height: 1.8;
-        }
-
-        .hero-visual {
-            position: relative;
-            z-index: 2;
-            width: 230px;
-            height: 140px;
-            display: grid;
-            place-items: center;
-            font-size: 105px;
-            filter: drop-shadow(0 15px 15px #0005);
-        }
-
-        .hero-visual::after {
-            content: "";
-            position: absolute;
-            width: 220px;
-            height: 12px;
-            border-radius: 50%;
-            background: #0b1429;
-            bottom: 8px;
-            z-index: -1;
         }
 
         .stats {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
+            gap: 16px;
             margin-bottom: 34px;
         }
 
@@ -295,41 +192,23 @@
             background: white;
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 21px 23px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .stat-icon {
-            width: 46px;
-            height: 46px;
-            display: grid;
-            place-items: center;
-            border-radius: 13px;
-            background: var(--blue-light);
-            font-size: 22px;
-            flex-shrink: 0;
-        }
-
-        .stat-card:nth-child(2) .stat-icon {
-            background: #e7f8f0;
-        }
-
-        .stat-card:nth-child(3) .stat-icon {
-            background: #fff3e4;
+            padding: 21px;
         }
 
         .stat-card p {
-            font-size: 11px;
             color: var(--muted);
-            margin-bottom: 5px;
+            font-size: 12px;
+            margin-bottom: 7px;
         }
 
-        .stat-card h3 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 25px;
+        .stat-card h2 {
+            font: 800 27px "Manrope", sans-serif;
             letter-spacing: -1px;
+        }
+
+        .section {
+            margin-bottom: 36px;
+            scroll-margin-top: 20px;
         }
 
         .section-heading {
@@ -341,10 +220,9 @@
         }
 
         .section-heading h2 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 22px;
-            letter-spacing: -.7px;
-            margin-bottom: 5px;
+            font: 700 22px "Manrope", sans-serif;
+            letter-spacing: -.6px;
+            margin-bottom: 4px;
         }
 
         .section-heading p {
@@ -352,33 +230,32 @@
             font-size: 12px;
         }
 
-        .count-label {
-            color: var(--blue);
-            background: var(--blue-light);
-            padding: 8px 12px;
-            border-radius: 8px;
+        .result-count {
+            color: var(--primary);
+            background: #edf2ff;
+            border-radius: 7px;
+            padding: 7px 10px;
             font-size: 11px;
-            font-weight: 700;
             white-space: nowrap;
         }
 
         .filters {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr auto;
+            gap: 11px;
+            padding: 14px;
             background: white;
             border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 15px;
-            display: grid;
-            grid-template-columns: minmax(180px, 1.6fr) repeat(2, minmax(120px, 1fr)) auto;
-            gap: 12px;
-            margin-bottom: 23px;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
         .field {
             width: 100%;
             min-width: 0;
-            padding: 12px 13px;
+            padding: 12px;
             border: 1px solid var(--border);
-            border-radius: 9px;
+            border-radius: 8px;
             background: white;
             color: var(--text);
             font-size: 12px;
@@ -386,210 +263,162 @@
         }
 
         .field:focus {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 3px #3867f514;
-        }
-
-        .search-wrap {
-            position: relative;
-        }
-
-        .search-wrap input {
-            padding-left: 37px;
-        }
-
-        .search-symbol {
-            position: absolute;
-            left: 13px;
-            top: 10px;
-            font-size: 17px;
-            color: var(--muted);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px #2457d615;
         }
 
         .btn {
-            border: none;
-            border-radius: 9px;
-            padding: 12px 17px;
-            background: var(--blue);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: var(--primary);
             color: white;
             font-size: 12px;
             font-weight: 700;
-            transition: .2s;
+            transition: background .2s;
         }
 
         .btn:hover {
-            background: #2854df;
-            transform: translateY(-1px);
+            background: var(--primary-dark);
         }
 
-        .btn-secondary {
-            background: #eef1f7;
-            color: #46536a;
+        .btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
         }
 
-        .btn-secondary:hover {
-            background: #e0e6f0;
+        .btn-light {
+            color: #44516a;
+            background: #edf0f6;
+        }
+
+        .btn-light:hover {
+            background: #e1e6ef;
         }
 
         .vehicle-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 19px;
+            gap: 18px;
         }
 
         .vehicle-card {
             overflow: hidden;
-            background: white;
             border: 1px solid var(--border);
-            border-radius: 17px;
+            border-radius: 14px;
+            background: white;
             transition: transform .2s, box-shadow .2s;
         }
 
         .vehicle-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px #1525440c;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px #1525440b;
         }
 
-        .vehicle-art {
-            height: 155px;
-            background: linear-gradient(135deg, #eaf0ff, #f5f7fc);
+        .vehicle-image {
+            height: 145px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, #e8efff, #f5f7fc);
+            color: #7c94c5;
         }
 
-        .vehicle-art::before {
-            content: "";
+        .vehicle-image svg {
+            width: 110px;
+            height: 75px;
+        }
+
+        .vehicle-id,
+        .availability {
             position: absolute;
-            width: 190px;
-            height: 190px;
-            border-radius: 50%;
-            background: #ffffff8c;
-            right: -45px;
-            top: -100px;
-        }
-
-        .vehicle-emoji {
-            position: relative;
-            z-index: 1;
-            font-size: 84px;
-            filter: drop-shadow(0 10px 7px #1b2b4825);
-            transition: transform .2s;
-        }
-
-        .vehicle-card:hover .vehicle-emoji {
-            transform: scale(1.06);
-        }
-
-        .vehicle-number {
-            position: absolute;
-            top: 13px;
-            left: 13px;
-            padding: 6px 9px;
-            border-radius: 7px;
+            top: 12px;
+            padding: 5px 8px;
+            border-radius: 5px;
             background: white;
-            color: #52617b;
             font-size: 10px;
             font-weight: 700;
+        }
+
+        .vehicle-id {
+            left: 12px;
+            color: #64718a;
         }
 
         .availability {
-            position: absolute;
             right: 12px;
-            top: 13px;
-            border-radius: 7px;
-            padding: 6px 9px;
-            background: #e4f8ee;
-            color: var(--green);
-            font-size: 10px;
-            font-weight: 700;
+            color: var(--success);
+            background: #e5f7ed;
         }
 
         .availability.unavailable {
+            color: var(--danger);
             background: #ffebed;
-            color: var(--red);
         }
 
         .vehicle-info {
-            padding: 18px;
+            padding: 17px;
         }
 
         .vehicle-brand {
             color: var(--muted);
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 10px;
-            font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .vehicle-info h3 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 18px;
-            letter-spacing: -.5px;
+            font: 700 17px "Manrope", sans-serif;
             margin-bottom: 14px;
             overflow-wrap: anywhere;
         }
 
-        .vehicle-specs {
+        .specs {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            padding-bottom: 16px;
+            gap: 7px;
+            padding-bottom: 15px;
             border-bottom: 1px solid var(--border);
         }
 
         .spec {
-            padding: 7px 9px;
-            border-radius: 7px;
-            background: #f5f7fb;
-            color: #647188;
+            background: #f3f5f9;
+            color: #68758b;
+            padding: 6px 8px;
+            border-radius: 5px;
             font-size: 10px;
         }
 
         .vehicle-footer {
-            padding-top: 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 8px;
+            padding-top: 15px;
         }
 
         .price {
-            font-family: 'Manrope', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: -1px;
+            font: 800 20px "Manrope", sans-serif;
+            letter-spacing: -.7px;
         }
 
         .price small {
-            font-family: 'DM Sans', sans-serif;
+            font: 400 10px "DM Sans", sans-serif;
             color: var(--muted);
-            font-size: 10px;
-            font-weight: 400;
             letter-spacing: 0;
-        }
-
-        .book-btn {
-            padding: 10px 13px;
-        }
-
-        .book-btn:disabled {
-            cursor: not-allowed;
-            background: #dce1eb;
-            color: #768197;
-            transform: none;
         }
 
         .message {
             display: none;
-            padding: 13px 16px;
-            border-radius: 10px;
-            margin-bottom: 18px;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            border-radius: 8px;
             font-size: 12px;
-            line-height: 1.6;
             overflow-wrap: anywhere;
         }
 
@@ -597,31 +426,27 @@
             display: block;
         }
 
-        .message.error {
-            color: #a92b3a;
-            background: #ffebed;
+        .message.success {
+            background: #e5f7ed;
+            color: #116c49;
         }
 
-        .message.success {
-            color: #116c4b;
-            background: #e4f8ee;
+        .message.error {
+            background: #ffebed;
+            color: #a82939;
         }
 
         .empty-state {
             grid-column: 1 / -1;
-            padding: 55px 20px;
+            padding: 35px 20px;
             text-align: center;
-            border: 1px dashed #cdd5e3;
-            border-radius: 15px;
             background: white;
-        }
-
-        .empty-state div {
-            font-size: 35px;
-            margin-bottom: 10px;
+            border: 1px dashed #cbd4e3;
+            border-radius: 12px;
         }
 
         .empty-state h3 {
+            font-size: 16px;
             margin-bottom: 7px;
         }
 
@@ -630,110 +455,38 @@
             font-size: 12px;
         }
 
-        .loader {
-            grid-column: 1 / -1;
-            padding: 40px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .footer {
-            text-align: center;
-            color: #929db0;
-            font-size: 11px;
-            padding: 38px 0 0;
-        }
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 18px;
-            background: #0b1529a8;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal.open {
-            display: flex;
-        }
-
-        .modal-card {
-            width: 100%;
-            max-width: 500px;
-            max-height: 92vh;
-            overflow-y: auto;
+        /* Booking section */
+        .booking-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(240px, .8fr);
+            gap: 25px;
+            padding: 25px;
             background: white;
-            border-radius: 20px;
-            padding: 27px;
-            box-shadow: 0 25px 80px #0003;
+            border: 1px solid var(--border);
+            border-radius: 15px;
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            align-items: flex-start;
-            margin-bottom: 22px;
+        .booking-form h3,
+        .summary-card h3 {
+            font: 700 17px "Manrope", sans-serif;
+            margin-bottom: 5px;
         }
 
-        .modal-header h2 {
-            font-family: 'Manrope', sans-serif;
-            font-size: 23px;
-            margin-bottom: 6px;
-        }
-
-        .modal-header p {
+        .form-description {
             color: var(--muted);
             font-size: 12px;
-        }
-
-        .close-btn {
-            width: 34px;
-            height: 34px;
-            border: none;
-            background: #f0f3f8;
-            border-radius: 10px;
-            font-size: 19px;
-            flex-shrink: 0;
-        }
-
-        .selected-vehicle {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 15px;
-            border-radius: 12px;
-            background: #f2f5ff;
-            margin-bottom: 20px;
-        }
-
-        .selected-vehicle .mini-car {
-            font-size: 37px;
-        }
-
-        .selected-vehicle h3 {
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .selected-vehicle p {
-            font-size: 11px;
-            color: var(--muted);
+            margin-bottom: 23px;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 16px;
         }
 
         .form-group {
             min-width: 0;
-            margin-bottom: 16px;
+            margin-bottom: 17px;
         }
 
         .form-group.full {
@@ -744,55 +497,73 @@
             display: block;
             font-size: 11px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 7px;
         }
 
-        .form-group .field {
-            width: 100%;
-        }
-
-        .total-box {
-            background: #f5f7fb;
+        .summary-card {
+            padding: 20px;
+            align-self: start;
+            background: #f5f7fc;
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            margin: 3px 0 18px;
+            border-radius: 11px;
         }
 
-        .total-row {
+        .summary-card h3 {
+            margin-bottom: 18px;
+        }
+
+        .summary-vehicle {
+            padding-bottom: 17px;
+            margin-bottom: 17px;
+            border-bottom: 1px solid #dfe5ef;
+        }
+
+        .summary-vehicle p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .summary-row {
             display: flex;
             justify-content: space-between;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 14px;
             font-size: 12px;
-            color: #657188;
-            margin-bottom: 10px;
         }
 
-        .total-row:last-child {
+        .summary-row span {
+            color: var(--muted);
+        }
+
+        .summary-row strong {
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .summary-total {
             border-top: 1px solid #dfe5ef;
-            padding-top: 12px;
-            margin: 0;
-            color: var(--text);
-            font-weight: 700;
+            padding-top: 16px;
+            margin-top: 6px;
         }
 
-        .total-row strong {
-            color: var(--text);
+        .summary-total strong {
+            color: var(--primary);
+            font: 800 21px "Manrope", sans-serif;
         }
 
-        .total-row:last-child strong {
-            color: var(--blue);
-            font-size: 19px;
+        .booking-note {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.7;
+            margin-top: 18px;
         }
 
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-        }
-
-        .submit-btn:disabled {
-            opacity: .65;
-            cursor: wait;
+        .footer {
+            text-align: center;
+            padding-top: 25px;
+            color: #8b96a8;
+            font-size: 11px;
         }
 
         @media (max-width: 1150px) {
@@ -801,15 +572,11 @@
             }
 
             .content {
-                padding: 28px 24px 40px;
+                padding: 25px;
             }
 
             .topbar {
-                padding: 0 24px;
-            }
-
-            .filters {
-                grid-template-columns: 1fr 1fr;
+                padding: 0 25px;
             }
         }
 
@@ -817,26 +584,13 @@
             .sidebar {
                 position: relative;
                 width: 100%;
-                height: auto;
-                padding: 14px 18px;
-                flex-direction: row;
-                align-items: center;
+                padding: 17px 20px;
             }
 
-            .brand {
-                padding: 0;
-            }
-
-            .brand-icon {
-                width: 37px;
-                height: 37px;
-            }
-
-            .brand h2 {
-                font-size: 19px;
-            }
-
-            .nav-label, .nav-link, .sidebar-bottom {
+            .brand-subtitle,
+            .nav-title,
+            .nav-link,
+            .sidebar-footer {
                 display: none;
             }
 
@@ -845,26 +599,16 @@
             }
 
             .topbar {
-                height: 61px;
-                padding: 0 18px;
+                height: 60px;
+                padding: 0 17px;
             }
 
             .content {
-                padding: 22px 15px 35px;
+                padding: 20px 15px 35px;
             }
 
             .hero {
-                padding: 27px 23px;
-                min-height: 200px;
-            }
-
-            .hero-visual {
-                width: 100px;
-                font-size: 64px;
-            }
-
-            .hero-visual::after {
-                width: 100px;
+                padding: 28px 23px;
             }
 
             .stats {
@@ -872,46 +616,30 @@
             }
 
             .stat-card {
-                padding: 14px 10px;
-                gap: 8px;
-                align-items: flex-start;
-                flex-direction: column;
+                padding: 14px 11px;
             }
 
-            .stat-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 17px;
-            }
-
-            .stat-card h3 {
-                font-size: 20px;
+            .stat-card h2 {
+                font-size: 21px;
             }
 
             .stat-card p {
                 font-size: 10px;
             }
 
-            .vehicle-grid {
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .booking-panel {
                 grid-template-columns: 1fr;
-            }
-
-            .vehicle-art {
-                height: 175px;
-            }
-
-            .section-heading h2 {
-                font-size: 19px;
-            }
-
-            .top-actions {
-                gap: 10px;
+                padding: 18px;
             }
         }
 
-        @media (max-width: 420px) {
-            .hero-visual {
-                display: none;
+        @media (max-width: 480px) {
+            .vehicle-grid {
+                grid-template-columns: 1fr;
             }
 
             .filters {
@@ -927,123 +655,85 @@
                 grid-column: auto;
             }
 
-            .status-pill {
-                font-size: 0;
-                padding: 10px;
+            .section-heading h2 {
+                font-size: 19px;
             }
 
-            .status-dot {
-                width: 8px;
-                height: 8px;
-            }
-
-            .content {
-                padding-left: 12px;
-                padding-right: 12px;
+            .result-count {
+                font-size: 10px;
             }
         }
     </style>
 </head>
 
 <body>
-<div class="layout">
 
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-icon">🚘</div>
-            <div>
-                <h2>Velora</h2>
-                <small>VEHICLE RENTALS</small>
+<aside class="sidebar">
+    <div class="brand">VELORA<span>.</span></div>
+    <div class="brand-subtitle">VEHICLE RENTAL SYSTEM</div>
+
+    <div class="nav-title">MAIN MENU</div>
+    <a class="nav-link active" href="#dashboard">Dashboard</a>
+    <a class="nav-link" href="#vehicles">Available Vehicles</a>
+    <a class="nav-link" href="#booking">Book a Vehicle</a>
+
+    <div class="sidebar-footer">
+        <strong>Velora Rentals</strong>
+        Reliable vehicles. Flexible journeys.
+    </div>
+</aside>
+
+<main class="main" id="dashboard">
+
+    <header class="topbar">
+        <div class="breadcrumb">Workspace / <strong>Dashboard</strong></div>
+        <div class="topbar-label">VEHICLE RENTAL PORTAL</div>
+    </header>
+
+    <div class="content">
+
+        <section class="hero">
+            <div class="eyebrow">WELCOME TO VELORA</div>
+            <h1>Your journey starts with the right vehicle.</h1>
+            <p>
+                Explore our vehicle collection, compare rental prices and
+                reserve your preferred vehicle through a simple booking process.
+            </p>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card">
+                <p>Total vehicles</p>
+                <h2 id="totalVehicles">—</h2>
             </div>
-        </div>
 
-        <div class="nav-label">WORKSPACE</div>
-
-        <a class="nav-link active" href="#dashboard">
-            <span>▦</span> Dashboard
-        </a>
-        <a class="nav-link" href="#vehicles">
-            <span>🚗</span> Our Vehicles
-        </a>
-        <a class="nav-link" href="#vehicles">
-            <span>📅</span> Book a Vehicle
-        </a>
-
-        <div class="sidebar-bottom">
-            <strong>Velora Rentals</strong>
-            Your journey, our priority.
-            <br>Premium mobility made simple.
-        </div>
-    </aside>
-
-    <main class="main" id="dashboard">
-        <header class="topbar">
-            <div class="breadcrumb">Workspace &nbsp; / &nbsp; <strong>Dashboard</strong></div>
-
-            <div class="top-actions">
-                <div class="status-pill">
-                    <span class="status-dot"></span>
-                    API CONNECTED
-                </div>
-                <div class="avatar">V</div>
+            <div class="stat-card">
+                <p>Currently available</p>
+                <h2 id="availableVehicles">—</h2>
             </div>
-        </header>
 
-        <div class="content">
+            <div class="stat-card">
+                <p>Starting daily price</p>
+                <h2 id="startingPrice">—</h2>
+            </div>
+        </section>
 
-            <section class="hero">
-                <div class="hero-copy">
-                    <div class="eyebrow">YOUR JOURNEY STARTS HERE</div>
-                    <h1>Find the perfect ride for every journey.</h1>
-                    <p>Explore our collection, compare daily rates and book your next ride in just a few clicks.</p>
-                </div>
-                <div class="hero-visual" aria-hidden="true">🚙</div>
-            </section>
-
-            <section class="stats">
-                <div class="stat-card">
-                    <div class="stat-icon">🚘</div>
-                    <div>
-                        <p>Total vehicles</p>
-                        <h3 id="totalVehicles">—</h3>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">✓</div>
-                    <div>
-                        <p>Available now</p>
-                        <h3 id="availableVehicles">—</h3>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon">₹</div>
-                    <div>
-                        <p>Starting from / day</p>
-                        <h3 id="startingPrice">—</h3>
-                    </div>
-                </div>
-            </section>
-
-            <div class="section-heading" id="vehicles">
+        <section class="section" id="vehicles">
+            <div class="section-heading">
                 <div>
-                    <h2>Explore our fleet</h2>
-                    <p>Choose your vehicle and get ready to go.</p>
+                    <h2>Our vehicles</h2>
+                    <p>Choose a vehicle that suits your journey.</p>
                 </div>
-                <div class="count-label" id="resultCount">Loading...</div>
+                <span class="result-count" id="resultCount">Loading...</span>
             </div>
 
-            <div id="pageMessage" class="message" role="status" aria-live="polite"></div>
+            <div class="message" id="pageMessage" role="status" aria-live="polite"></div>
 
-            <section class="filters">
-                <div class="search-wrap">
-                    <span class="search-symbol">⌕</span>
-                    <input class="field" id="searchInput" type="search"
-                           placeholder="Search vehicle or brand...">
-                </div>
+            <div class="filters">
+                <input class="field" id="searchInput" type="search"
+                       placeholder="Search by vehicle or brand">
 
-                <select class="field" id="fuelFilter" aria-label="Filter by fuel type">
+                <select class="field" id="fuelFilter" aria-label="Fuel type">
                     <option value="">All fuel types</option>
                     <option value="Petrol">Petrol</option>
                     <option value="Diesel">Diesel</option>
@@ -1051,139 +741,167 @@
                     <option value="Hybrid">Hybrid</option>
                 </select>
 
-                <select class="field" id="availabilityFilter" aria-label="Filter availability">
+                <select class="field" id="availabilityFilter" aria-label="Availability">
                     <option value="">All vehicles</option>
-                    <option value="true">Available only</option>
+                    <option value="true">Available</option>
                     <option value="false">Unavailable</option>
                 </select>
 
-                <button class="btn btn-secondary" id="resetFilters" type="button">
+                <button class="btn btn-light" id="resetFilters" type="button">
                     Reset
                 </button>
-            </section>
-
-            <section class="vehicle-grid" id="vehicleGrid" aria-live="polite">
-                <div class="loader">Loading vehicles from your Django API...</div>
-            </section>
-
-            <footer class="footer">
-                © <span id="currentYear"></span> Velora Vehicle Rentals. All rights reserved.
-            </footer>
-        </div>
-    </main>
-</div>
-
-<div class="modal" id="bookingModal" role="dialog"
-     aria-modal="true" aria-labelledby="bookingTitle">
-    <div class="modal-card">
-        <div class="modal-header">
-            <div>
-                <h2 id="bookingTitle">Reserve your ride</h2>
-                <p>Fill in your details to confirm the booking.</p>
             </div>
-            <button class="close-btn" id="closeModal" type="button"
-                    aria-label="Close booking form">×</button>
-        </div>
 
-        <div class="selected-vehicle">
-            <div class="mini-car">🚘</div>
-            <div>
-                <h3 id="selectedVehicleName">Vehicle</h3>
-                <p id="selectedVehicleRate">₹0 / day</p>
+            <div class="vehicle-grid" id="vehicleGrid" aria-live="polite">
+                <div class="empty-state">
+                    <p>Loading vehicles from the server...</p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <form id="bookingForm">
-            <div class="form-grid">
-                <div class="form-group full">
-                    <label for="customerName">Full name</label>
-                    <input class="field" id="customerName" name="customer_name"
-                           type="text" maxlength="100" required
-                           placeholder="Enter your full name">
-                </div>
-
-                <div class="form-group full">
-                    <label for="customerPhone">10-digit phone number</label>
-                    <input class="field" id="customerPhone" name="customer_phone"
-                           type="tel" inputmode="numeric" pattern="[0-9]{10}"
-                           maxlength="10" minlength="10" required
-                           placeholder="9876543210">
-                </div>
-
-                <div class="form-group">
-                    <label for="startDate">Pickup date</label>
-                    <input class="field" id="startDate" name="start_date"
-                           type="date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="endDate">Return date</label>
-                    <input class="field" id="endDate" name="end_date"
-                           type="date" required>
+        <section class="section" id="booking">
+            <div class="section-heading">
+                <div>
+                    <h2>Book your vehicle</h2>
+                    <p>Enter your details and review your estimated rental amount.</p>
                 </div>
             </div>
 
-            <div class="total-box">
-                <div class="total-row">
-                    <span>Price per day</span>
-                    <strong id="dailyRate">₹0</strong>
+            <div class="booking-panel">
+                <div class="booking-form">
+                    <h3>Booking details</h3>
+                    <p class="form-description">
+                        All fields are required to submit your booking.
+                    </p>
+
+                    <div class="message" id="bookingMessage"
+                         role="status" aria-live="polite"></div>
+
+                    <form id="bookingForm">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label for="vehicleSelect">Select vehicle</label>
+                                <select class="field" id="vehicleSelect" required>
+                                    <option value="">Choose an available vehicle</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full">
+                                <label for="customerName">Customer name</label>
+                                <input class="field" id="customerName"
+                                       type="text" maxlength="100"
+                                       placeholder="Enter your full name" required>
+                            </div>
+
+                            <div class="form-group full">
+                                <label for="customerPhone">Phone number</label>
+                                <input class="field" id="customerPhone"
+                                       type="tel" inputmode="numeric"
+                                       pattern="[0-9]{10}" minlength="10"
+                                       maxlength="10" placeholder="10-digit mobile number"
+                                       title="Enter exactly 10 digits" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="startDate">Pickup date</label>
+                                <input class="field" id="startDate"
+                                       type="date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="endDate">Return date</label>
+                                <input class="field" id="endDate"
+                                       type="date" required>
+                            </div>
+                        </div>
+
+                        <button class="btn" id="submitBooking" type="submit">
+                            Confirm booking
+                        </button>
+                    </form>
                 </div>
-                <div class="total-row">
-                    <span>Rental duration</span>
-                    <strong id="rentalDays">—</strong>
-                </div>
-                <div class="total-row">
-                    <span>Estimated total</span>
-                    <strong id="estimatedTotal">₹0</strong>
-                </div>
+
+                <aside class="summary-card">
+                    <h3>Booking summary</h3>
+
+                    <div class="summary-vehicle">
+                        <strong id="summaryVehicle">No vehicle selected</strong>
+                        <p id="summaryFuel">Select a vehicle to continue.</p>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Price per day</span>
+                        <strong id="summaryRate">₹0</strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Rental duration</span>
+                        <strong id="summaryDays">—</strong>
+                    </div>
+
+                    <div class="summary-row summary-total">
+                        <span>Estimated total</span>
+                        <strong id="summaryTotal">₹0</strong>
+                    </div>
+
+                    <p class="booking-note">
+                        The final booking amount is calculated by the server.
+                        Select a pickup and return date to see your estimate.
+                    </p>
+                </aside>
             </div>
+        </section>
 
-            <div id="bookingMessage" class="message" role="alert" aria-live="polite"></div>
+        <footer class="footer">
+            © <span id="year"></span> Velora Vehicle Rental System
+        </footer>
 
-            <button class="btn submit-btn" id="submitBooking" type="submit">
-                Confirm Booking →
-            </button>
-        </form>
     </div>
-</div>
+</main>
 
 <script>
-    // Django REST Framework API endpoints
     const VEHICLES_API = "/api/vehicles/";
     const BOOKINGS_API = "/api/bookings/";
 
     let vehicles = [];
-    let selectedVehicle = null;
-    let bookingInProgress = false;
+    let submitting = false;
 
     const grid = document.getElementById("vehicleGrid");
+    const vehicleSelect = document.getElementById("vehicleSelect");
+    const bookingForm = document.getElementById("bookingForm");
     const pageMessage = document.getElementById("pageMessage");
     const bookingMessage = document.getElementById("bookingMessage");
-    const modal = document.getElementById("bookingModal");
-    const bookingForm = document.getElementById("bookingForm");
+    const submitButton = document.getElementById("submitBooking");
 
-    document.getElementById("currentYear").textContent =
-        new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     function escapeHTML(value) {
-        return String(value ?? "").replace(/[&<>"']/g, function (char) {
-            return {
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#39;"
-            }[char];
-        });
+        return String(value ?? "").replace(/[&<>"']/g, character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[character]);
     }
 
-    function formatMoney(value) {
+    function money(value) {
         const amount = Number(value);
+
         if (!Number.isFinite(amount)) return "₹0";
 
         return "₹" + amount.toLocaleString("en-IN", {
+            minimumFractionDigits: 0,
             maximumFractionDigits: 2
         });
+    }
+
+    function localDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
     }
 
     function showMessage(element, message, type) {
@@ -1191,7 +909,7 @@
         element.className = "message show " + type;
     }
 
-    function hideMessage(element) {
+    function clearMessage(element) {
         element.textContent = "";
         element.className = "message";
     }
@@ -1207,53 +925,69 @@
         });
 
         if (!response.ok) {
-            let detail = "Request failed (" + response.status + ").";
+            let message = "Request failed (" + response.status + ").";
 
             try {
                 const data = await response.json();
 
                 if (data.detail) {
-                    detail = data.detail;
+                    message = data.detail;
                 } else {
-                    const errors = Object.entries(data).map(([key, value]) => {
-                        const text = Array.isArray(value)
+                    message = Object.entries(data).map(([key, value]) => {
+                        const description = Array.isArray(value)
                             ? value.join(" ")
                             : typeof value === "string"
                                 ? value
                                 : JSON.stringify(value);
 
-                        return key + ": " + text;
-                    });
-
-                    if (errors.length) detail = errors.join(" | ");
+                        return key + ": " + description;
+                    }).join(" | ") || message;
                 }
-            } catch (_) {
-                // Keep the default error message.
-            }
+            } catch (_) {}
 
-            throw new Error(detail);
+            throw new Error(message);
         }
 
         if (response.status === 204) return null;
         return response.json();
     }
 
+    function vehicleSvg() {
+        return `
+            <svg viewBox="0 0 140 85" fill="none"
+                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 48 L29 29 Q32 23 40 23 H91 Q98 23 104 31
+                         L118 47 L126 51 Q131 54 131 61 V67 H9 V57
+                         Q9 51 20 48Z"
+                      fill="#3865BA"/>
+                <path d="M36 29 H61 V45 H27 L36 29Z" fill="#DCE8FF"/>
+                <path d="M67 29 H90 Q95 29 99 35 L107 45 H67 V29Z"
+                      fill="#DCE8FF"/>
+                <path d="M14 52 H126" stroke="#244987" stroke-width="3"/>
+                <circle cx="35" cy="66" r="10" fill="#1B2B48"/>
+                <circle cx="35" cy="66" r="4" fill="#D8E0EE"/>
+                <circle cx="105" cy="66" r="10" fill="#1B2B48"/>
+                <circle cx="105" cy="66" r="4" fill="#D8E0EE"/>
+                <rect x="116" y="51" width="10" height="5" rx="2" fill="#F7D9A3"/>
+            </svg>`;
+    }
+
     async function loadVehicles() {
-        grid.innerHTML = '<div class="loader">Loading vehicles...</div>';
+        grid.innerHTML = '<div class="empty-state"><p>Loading vehicles...</p></div>';
 
         try {
             const data = await apiRequest(VEHICLES_API);
-
-            // Supports standard DRF lists and paginated responses.
             vehicles = Array.isArray(data) ? data : (data.results || []);
 
+            clearMessage(pageMessage);
             updateStats();
+            updateVehicleOptions();
             renderVehicles();
+            updateSummary();
 
         } catch (error) {
             grid.innerHTML = `
                 <div class="empty-state">
-                    <div>⚠️</div>
                     <h3>Unable to load vehicles</h3>
                     <p>${escapeHTML(error.message)}</p>
                     <br>
@@ -1263,39 +997,49 @@
                 </div>`;
 
             document.getElementById("resultCount").textContent = "API error";
+
             showMessage(
                 pageMessage,
-                "Could not connect to the vehicles API. Check your Django server and /api/vehicles/ endpoint.",
+                "Could not load vehicle data. Check that Django is running and the vehicles API is available.",
                 "error"
             );
         }
     }
 
     function updateStats() {
-        const available = vehicles.filter(
-            vehicle => vehicle.is_available === true
-        );
+        const available = vehicles.filter(v => v.is_available === true);
 
         const prices = available
-            .map(vehicle => Number(vehicle.price_per_day))
+            .map(v => Number(v.price_per_day))
             .filter(price => Number.isFinite(price) && price >= 0);
 
-        document.getElementById("totalVehicles").textContent =
-            vehicles.length;
-
-        document.getElementById("availableVehicles").textContent =
-            available.length;
+        document.getElementById("totalVehicles").textContent = vehicles.length;
+        document.getElementById("availableVehicles").textContent = available.length;
 
         document.getElementById("startingPrice").textContent =
-            prices.length ? formatMoney(Math.min(...prices)) : "—";
+            prices.length ? money(Math.min(...prices)) : "—";
     }
 
-    function getVehicleEmoji(vehicle) {
-        const fuel = String(vehicle.fuel_type || "").toLowerCase();
+    function updateVehicleOptions() {
+        const previousValue = vehicleSelect.value;
 
-        if (fuel === "electric") return "🚙";
-        if (fuel === "hybrid") return "🚘";
-        return "🚗";
+        const options = vehicles
+            .filter(vehicle => vehicle.is_available === true)
+            .map(vehicle => `
+                <option value="${escapeHTML(vehicle.id)}">
+                    ${escapeHTML(vehicle.brand)} ${escapeHTML(vehicle.name)}
+                    — ${money(vehicle.price_per_day)}/day
+                </option>
+            `).join("");
+
+        vehicleSelect.innerHTML =
+            '<option value="">Choose an available vehicle</option>' + options;
+
+        if (vehicles.some(v =>
+            String(v.id) === previousValue && v.is_available === true
+        )) {
+            vehicleSelect.value = previousValue;
+        }
     }
 
     function renderVehicles() {
@@ -1329,7 +1073,6 @@
         if (!filtered.length) {
             grid.innerHTML = `
                 <div class="empty-state">
-                    <div>🔎</div>
                     <h3>No vehicles found</h3>
                     <p>Try changing your search or filters.</p>
                 </div>`;
@@ -1338,23 +1081,17 @@
 
         grid.innerHTML = filtered.map(vehicle => {
             const available = vehicle.is_available === true;
-            const name = [vehicle.brand, vehicle.name].filter(Boolean).join(" ");
-            const price = Number(vehicle.price_per_day);
 
             return `
                 <article class="vehicle-card">
-                    <div class="vehicle-art">
-                        <span class="vehicle-number">
-                            VEHICLE #${escapeHTML(vehicle.id)}
+                    <div class="vehicle-image">
+                        <span class="vehicle-id">
+                            ID ${escapeHTML(vehicle.id)}
                         </span>
-
                         <span class="availability ${available ? "" : "unavailable"}">
-                            ${available ? "● Available" : "● Unavailable"}
+                            ${available ? "Available" : "Unavailable"}
                         </span>
-
-                        <div class="vehicle-emoji" aria-hidden="true">
-                            ${getVehicleEmoji(vehicle)}
-                        </div>
+                        ${vehicleSvg()}
                     </div>
 
                     <div class="vehicle-info">
@@ -1364,24 +1101,21 @@
 
                         <h3>${escapeHTML(vehicle.name)}</h3>
 
-                        <div class="vehicle-specs">
-                            <span class="spec">📅 ${escapeHTML(vehicle.year)}</span>
-                            <span class="spec">⛽ ${escapeHTML(vehicle.fuel_type)}</span>
+                        <div class="specs">
+                            <span class="spec">Year: ${escapeHTML(vehicle.year)}</span>
+                            <span class="spec">${escapeHTML(vehicle.fuel_type)}</span>
                         </div>
 
                         <div class="vehicle-footer">
                             <div class="price">
-                                ${formatMoney(price)}
+                                ${money(vehicle.price_per_day)}
                                 <small>/ day</small>
                             </div>
 
-                            <button
-                                class="btn book-btn"
-                                type="button"
-                                data-book-id="${escapeHTML(vehicle.id)}"
-                                ${available ? "" : "disabled"}
-                            >
-                                ${available ? "Book now →" : "Unavailable"}
+                            <button class="btn" type="button"
+                                data-select-vehicle="${escapeHTML(vehicle.id)}"
+                                ${available ? "" : "disabled"}>
+                                ${available ? "Select vehicle" : "Unavailable"}
                             </button>
                         </div>
                     </div>
@@ -1389,104 +1123,89 @@
         }).join("");
     }
 
-    function getLocalDateString(date) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
+    grid.addEventListener("click", event => {
+        const button = event.target.closest("[data-select-vehicle]");
 
-        return `${year}-${month}-${day}`;
-    }
+        if (!button || button.disabled) return;
 
-    function openBooking(vehicleId) {
-        selectedVehicle = vehicles.find(
-            vehicle => String(vehicle.id) === String(vehicleId)
+        const id = button.dataset.selectVehicle;
+        const vehicle = vehicles.find(v => String(v.id) === String(id));
+
+        if (!vehicle || !vehicle.is_available) return;
+
+        vehicleSelect.value = String(vehicle.id);
+        updateSummary();
+
+        document.getElementById("booking").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        document.getElementById("customerName").focus({
+            preventScroll: true
+        });
+    });
+
+    function selectedVehicle() {
+        return vehicles.find(
+            vehicle => String(vehicle.id) === vehicleSelect.value
         );
-
-        if (!selectedVehicle || selectedVehicle.is_available !== true) {
-            showMessage(pageMessage, "This vehicle is not available for booking.", "error");
-            return;
-        }
-
-        hideMessage(pageMessage);
-        hideMessage(bookingMessage);
-        bookingForm.reset();
-
-        const today = getLocalDateString(new Date());
-
-        document.getElementById("startDate").min = today;
-        document.getElementById("endDate").min = today;
-
-        document.getElementById("selectedVehicleName").textContent =
-            selectedVehicle.brand + " " + selectedVehicle.name;
-
-        document.getElementById("selectedVehicleRate").textContent =
-            formatMoney(selectedVehicle.price_per_day) + " per day";
-
-        document.getElementById("dailyRate").textContent =
-            formatMoney(selectedVehicle.price_per_day);
-
-        document.getElementById("rentalDays").textContent = "—";
-        document.getElementById("estimatedTotal").textContent = "₹0";
-
-        document.getElementById("submitBooking").disabled = false;
-        document.getElementById("submitBooking").textContent =
-            "Confirm Booking →";
-
-        modal.classList.add("open");
-        document.getElementById("customerName").focus();
     }
 
-    function closeBooking() {
-        if (bookingInProgress) return;
+    function updateSummary() {
+        const vehicle = selectedVehicle();
 
-        modal.classList.remove("open");
-        selectedVehicle = null;
-    }
+        document.getElementById("summaryVehicle").textContent =
+            vehicle ? vehicle.brand + " " + vehicle.name : "No vehicle selected";
 
-    function updateBookingTotal() {
-        if (!selectedVehicle) return;
+        document.getElementById("summaryFuel").textContent =
+            vehicle
+                ? "Year: " + vehicle.year + " | Fuel: " + vehicle.fuel_type
+                : "Select an available vehicle to continue.";
+
+        document.getElementById("summaryRate").textContent =
+            vehicle ? money(vehicle.price_per_day) : "₹0";
+
+        document.getElementById("summaryDays").textContent = "—";
+        document.getElementById("summaryTotal").textContent = "₹0";
+
+        if (!vehicle) return;
 
         const startValue = document.getElementById("startDate").value;
         const endValue = document.getElementById("endDate").value;
-        const rate = Number(selectedVehicle.price_per_day);
 
-        const start = startValue
-            ? new Date(startValue + "T00:00:00")
-            : null;
+        if (!startValue || !endValue || endValue <= startValue) return;
 
-        const end = endValue
-            ? new Date(endValue + "T00:00:00")
-            : null;
-
-        document.getElementById("rentalDays").textContent = "—";
-        document.getElementById("estimatedTotal").textContent = "₹0";
-
-        if (!start || !end || end <= start) return;
-
+        const start = new Date(startValue + "T00:00:00");
+        const end = new Date(endValue + "T00:00:00");
         const days = Math.round((end - start) / 86400000);
-        const total = days * rate;
 
-        document.getElementById("rentalDays").textContent =
+        if (days <= 0) return;
+
+        const total = days * Number(vehicle.price_per_day);
+
+        document.getElementById("summaryDays").textContent =
             days + (days === 1 ? " day" : " days");
 
-        document.getElementById("estimatedTotal").textContent =
-            formatMoney(total);
+        document.getElementById("summaryTotal").textContent = money(total);
     }
 
+    vehicleSelect.addEventListener("change", updateSummary);
+
     document.getElementById("startDate").addEventListener("change", function () {
-        const startValue = this.value;
         const endInput = document.getElementById("endDate");
+        const today = localDate(new Date());
 
-        endInput.min = startValue || getLocalDateString(new Date());
+        endInput.min = this.value || today;
 
-        if (endInput.value && endInput.value <= startValue) {
+        if (endInput.value && endInput.value <= this.value) {
             endInput.value = "";
         }
 
-        updateBookingTotal();
+        updateSummary();
     });
 
-    document.getElementById("endDate").addEventListener("change", updateBookingTotal);
+    document.getElementById("endDate").addEventListener("change", updateSummary);
 
     document.getElementById("searchInput").addEventListener("input", renderVehicles);
     document.getElementById("fuelFilter").addEventListener("change", renderVehicles);
@@ -1499,56 +1218,48 @@
         renderVehicles();
     });
 
-    grid.addEventListener("click", function (event) {
-        const button = event.target.closest("[data-book-id]");
-        if (button && !button.disabled) {
-            openBooking(button.dataset.bookId);
-        }
-    });
-
-    document.getElementById("closeModal").addEventListener("click", closeBooking);
-
-    modal.addEventListener("click", function (event) {
-        if (event.target === modal) closeBooking();
-    });
-
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && modal.classList.contains("open")) {
-            closeBooking();
-        }
-    });
-
     bookingForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        if (bookingInProgress || !selectedVehicle) return;
+        if (submitting) return;
 
-        hideMessage(bookingMessage);
+        clearMessage(bookingMessage);
 
-        const customerName =
-            document.getElementById("customerName").value.trim();
-
-        const customerPhone =
-            document.getElementById("customerPhone").value.trim();
-
+        const vehicle = selectedVehicle();
+        const name = document.getElementById("customerName").value.trim();
+        const phone = document.getElementById("customerPhone").value.trim();
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
+        const today = localDate(new Date());
 
-        if (!customerName) {
-            showMessage(bookingMessage, "Please enter your full name.", "error");
+        if (!vehicle) {
+            showMessage(bookingMessage, "Please select an available vehicle.", "error");
             return;
         }
 
-        if (!/^[0-9]{10}$/.test(customerPhone)) {
+        if (!vehicle.is_available) {
             showMessage(
                 bookingMessage,
-                "Please enter a valid 10-digit phone number.",
+                "This vehicle is no longer available. Please select another vehicle.",
+                "error"
+            );
+            await loadVehicles();
+            return;
+        }
+
+        if (!name) {
+            showMessage(bookingMessage, "Enter the customer's full name.", "error");
+            return;
+        }
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+            showMessage(
+                bookingMessage,
+                "Phone number must contain exactly 10 digits.",
                 "error"
             );
             return;
         }
-
-        const today = getLocalDateString(new Date());
 
         if (!startDate || !endDate || startDate < today || endDate <= startDate) {
             showMessage(
@@ -1559,70 +1270,74 @@
             return;
         }
 
-        if (selectedVehicle.is_available !== true) {
-            showMessage(
-                bookingMessage,
-                "This vehicle is no longer available. Please choose another vehicle.",
-                "error"
-            );
-            return;
-        }
-
-        const submitButton = document.getElementById("submitBooking");
-        bookingInProgress = true;
+        submitting = true;
         submitButton.disabled = true;
-        submitButton.textContent = "Processing booking...";
+        submitButton.textContent = "Submitting booking...";
 
         try {
-            const booking = await apiRequest(BOOKINGS_API, {
+            const result = await apiRequest(BOOKINGS_API, {
                 method: "POST",
                 body: JSON.stringify({
-                    vehicle: selectedVehicle.id,
-                    customer_name: customerName,
-                    customer_phone: customerPhone,
+                    vehicle: vehicle.id,
+                    customer_name: name,
+                    customer_phone: phone,
                     start_date: startDate,
                     end_date: endDate
                 })
             });
 
-            const bookedName =
-                selectedVehicle.brand + " " + selectedVehicle.name;
-
-            const amount = booking.total_amount ??
-                (Math.round(
-                    (new Date(endDate + "T00:00:00") -
-                     new Date(startDate + "T00:00:00")) / 86400000
-                ) * Number(selectedVehicle.price_per_day));
-
-            modal.classList.remove("open");
+            const amount = result && result.total_amount != null
+                ? result.total_amount
+                : (
+                    Math.round(
+                        (new Date(endDate + "T00:00:00") -
+                         new Date(startDate + "T00:00:00")) / 86400000
+                    ) * Number(vehicle.price_per_day)
+                );
 
             showMessage(
-                pageMessage,
-                "Booking successful! " + bookedName +
-                " has been booked for " + customerName +
-                ". Total amount: " + formatMoney(amount) + ".",
+                bookingMessage,
+                "Booking confirmed successfully. Reference: " +
+                (result && result.id != null ? result.id : "Created") +
+                ". Total amount: " + money(amount) + ".",
                 "success"
             );
 
+            bookingForm.reset();
+            document.getElementById("startDate").min = localDate(new Date());
+            document.getElementById("endDate").min = localDate(new Date());
+
             await loadVehicles();
+
+            vehicleSelect.value = "";
+            updateSummary();
+
+            document.getElementById("booking").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
         } catch (error) {
             showMessage(
                 bookingMessage,
-                "Booking failed: " + error.message,
+                "Unable to complete the booking: " + error.message,
                 "error"
             );
 
-            submitButton.disabled = false;
-            submitButton.textContent = "Try Again →";
-
         } finally {
-            bookingInProgress = false;
+            submitting = false;
+            submitButton.disabled = false;
+            submitButton.textContent = "Confirm booking";
         }
     });
 
-    // Load real vehicle records from Django when the page opens.
+    const today = localDate(new Date());
+
+    document.getElementById("startDate").min = today;
+    document.getElementById("endDate").min = today;
+
     loadVehicles();
 </script>
+
 </body>
 </html>
