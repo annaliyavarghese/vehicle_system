@@ -1,145 +1,1628 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle System Dashboard</title>
+    <title>Velora | Premium Vehicle Rental</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #2563eb;
-            --dark: #1f2937;
-            --light: #f3f4f6;
+            --bg: #f5f7fb;
             --white: #ffffff;
+            --navy: #101c35;
+            --navy-light: #192946;
+            --blue: #3867f5;
+            --blue-light: #edf2ff;
+            --text: #17243b;
+            --muted: #7c879b;
+            --border: #e8ecf3;
+            --green: #14845b;
+            --red: #d94151;
+            --radius: 18px;
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
+
         body {
-            background-color: var(--light);
-            color: var(--dark);
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        button, input, select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .layout {
             min-height: 100vh;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 245px;
+            padding: 30px 20px;
+            background: var(--navy);
+            color: white;
             display: flex;
             flex-direction: column;
+            z-index: 20;
         }
-        header {
-            background-color: var(--white);
-            padding: 1rem 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 10px 34px;
+        }
+
+        .brand-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            background: var(--blue);
+            border-radius: 13px;
+            font-size: 23px;
+        }
+
+        .brand h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 22px;
+            letter-spacing: -1px;
+        }
+
+        .brand small {
+            display: block;
+            color: #a6b4d0;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-top: 2px;
+        }
+
+        .nav-label {
+            color: #8190ad;
+            font-size: 10px;
+            letter-spacing: 1.8px;
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 14px;
+            border-radius: 11px;
+            color: #bdc8dc;
+            text-decoration: none;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .nav-link.active {
+            background: #26385c;
+            color: white;
+        }
+
+        .nav-link span {
+            font-size: 18px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            border-top: 1px solid #2b3850;
+            padding: 20px 10px 0;
+            color: #aebbd0;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .sidebar-bottom strong {
+            color: white;
+            display: block;
+            font-size: 13px;
+        }
+
+        .main {
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 78px;
+            padding: 0 38px;
+            background: white;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
         }
-        header h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
+
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 12px;
         }
-        .container {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 1rem;
-            flex-grow: 1;
-            text-align: center;
+
+        .breadcrumb strong {
+            color: var(--text);
         }
-        .hero {
-            margin-bottom: 3rem;
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
         }
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 13px;
+            background: #eaf8f1;
+            border-radius: 30px;
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 700;
         }
-        .hero p {
-            color: #6b7280;
-            font-size: 1.125rem;
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #19a873;
         }
-        .grid {
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1max));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            place-items: center;
+            background: #e8edff;
+            color: var(--blue);
+            font-weight: 800;
         }
-        .card {
-            background: var(--white);
-            padding: 2rem;
+
+        .content {
+            max-width: 1500px;
+            margin: auto;
+            padding: 34px 38px 50px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(115deg, #142441, #253f70);
+            color: white;
+            border-radius: 22px;
+            padding: 39px 42px;
+            min-height: 225px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 27px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ffffff15;
+            border-radius: 50%;
+            right: 60px;
+            top: -160px;
+            box-shadow: 0 0 0 40px #ffffff08, 0 0 0 80px #ffffff05;
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 2;
+            max-width: 520px;
+        }
+
+        .eyebrow {
+            color: #b9cbff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(26px, 3vw, 39px);
+            line-height: 1.2;
+            letter-spacing: -1.5px;
+            margin-bottom: 13px;
+        }
+
+        .hero p {
+            color: #c3cde0;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .hero-visual {
+            position: relative;
+            z-index: 2;
+            width: 230px;
+            height: 140px;
+            display: grid;
+            place-items: center;
+            font-size: 105px;
+            filter: drop-shadow(0 15px 15px #0005);
+        }
+
+        .hero-visual::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 12px;
+            border-radius: 50%;
+            background: #0b1429;
+            bottom: 8px;
+            z-index: -1;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 34px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 21px 23px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-icon {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--blue-light);
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            background: #e7f8f0;
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            background: #fff3e4;
+        }
+
+        .stat-card p {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 5px;
+        }
+
+        .stat-card h3 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 25px;
+            letter-spacing: -1px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 19px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 22px;
+            letter-spacing: -.7px;
+            margin-bottom: 5px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .count-label {
+            color: var(--blue);
+            background: var(--blue-light);
+            padding: 8px 12px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
         }
-        .card:hover {
-            transform: translateY(-4px);
+
+        .filters {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: minmax(180px, 1.6fr) repeat(2, minmax(120px, 1fr)) auto;
+            gap: 12px;
+            margin-bottom: 23px;
         }
-        .card h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
+
+        .field {
+            width: 100%;
+            min-width: 0;
+            padding: 12px 13px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: white;
+            color: var(--text);
+            font-size: 12px;
+            outline: none;
         }
-        .card p {
-            color: #6b7280;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+
+        .field:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px #3867f514;
         }
+
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap input {
+            padding-left: 37px;
+        }
+
+        .search-symbol {
+            position: absolute;
+            left: 13px;
+            top: 10px;
+            font-size: 17px;
+            color: var(--muted);
+        }
+
         .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
+            border: none;
+            border-radius: 9px;
+            padding: 12px 17px;
+            background: var(--blue);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            transition: .2s;
         }
+
         .btn:hover {
-            background-color: #1d4ed8;
+            background: #2854df;
+            transform: translateY(-1px);
         }
-        footer {
+
+        .btn-secondary {
+            background: #eef1f7;
+            color: #46536a;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e6f0;
+        }
+
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 19px;
+        }
+
+        .vehicle-card {
+            overflow: hidden;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px #1525440c;
+        }
+
+        .vehicle-art {
+            height: 155px;
+            background: linear-gradient(135deg, #eaf0ff, #f5f7fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vehicle-art::before {
+            content: "";
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            background: #ffffff8c;
+            right: -45px;
+            top: -100px;
+        }
+
+        .vehicle-emoji {
+            position: relative;
+            z-index: 1;
+            font-size: 84px;
+            filter: drop-shadow(0 10px 7px #1b2b4825);
+            transition: transform .2s;
+        }
+
+        .vehicle-card:hover .vehicle-emoji {
+            transform: scale(1.06);
+        }
+
+        .vehicle-number {
+            position: absolute;
+            top: 13px;
+            left: 13px;
+            padding: 6px 9px;
+            border-radius: 7px;
+            background: white;
+            color: #52617b;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .availability {
+            position: absolute;
+            right: 12px;
+            top: 13px;
+            border-radius: 7px;
+            padding: 6px 9px;
+            background: #e4f8ee;
+            color: var(--green);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .availability.unavailable {
+            background: #ffebed;
+            color: var(--red);
+        }
+
+        .vehicle-info {
+            padding: 18px;
+        }
+
+        .vehicle-brand {
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .vehicle-info h3 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 18px;
+            letter-spacing: -.5px;
+            margin-bottom: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .vehicle-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .spec {
+            padding: 7px 9px;
+            border-radius: 7px;
+            background: #f5f7fb;
+            color: #647188;
+            font-size: 10px;
+        }
+
+        .vehicle-footer {
+            padding-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .price {
+            font-family: 'Manrope', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .price small {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .book-btn {
+            padding: 10px 13px;
+        }
+
+        .book-btn:disabled {
+            cursor: not-allowed;
+            background: #dce1eb;
+            color: #768197;
+            transform: none;
+        }
+
+        .message {
+            display: none;
+            padding: 13px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            color: #a92b3a;
+            background: #ffebed;
+        }
+
+        .message.success {
+            color: #116c4b;
+            background: #e4f8ee;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 55px 20px;
             text-align: center;
-            padding: 1.5rem;
-            color: #9ca3af;
-            font-size: 0.875rem;
-            background-color: var(--white);
-            border-top: 1px solid #e5e7eb;
+            border: 1px dashed #cdd5e3;
+            border-radius: 15px;
+            background: white;
+        }
+
+        .empty-state div {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 7px;
+        }
+
+        .empty-state p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .loader {
+            grid-column: 1 / -1;
+            padding: 40px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #929db0;
+            font-size: 11px;
+            padding: 38px 0 0;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: #0b1529a8;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 500px;
+            max-height: 92vh;
+            overflow-y: auto;
+            background: white;
+            border-radius: 20px;
+            padding: 27px;
+            box-shadow: 0 25px 80px #0003;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 22px;
+        }
+
+        .modal-header h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 23px;
+            margin-bottom: 6px;
+        }
+
+        .modal-header p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .close-btn {
+            width: 34px;
+            height: 34px;
+            border: none;
+            background: #f0f3f8;
+            border-radius: 10px;
+            font-size: 19px;
+            flex-shrink: 0;
+        }
+
+        .selected-vehicle {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #f2f5ff;
+            margin-bottom: 20px;
+        }
+
+        .selected-vehicle .mini-car {
+            font-size: 37px;
+        }
+
+        .selected-vehicle h3 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .selected-vehicle p {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            min-width: 0;
+            margin-bottom: 16px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-group .field {
+            width: 100%;
+        }
+
+        .total-box {
+            background: #f5f7fb;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 3px 0 18px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 12px;
+            color: #657188;
+            margin-bottom: 10px;
+        }
+
+        .total-row:last-child {
+            border-top: 1px solid #dfe5ef;
+            padding-top: 12px;
+            margin: 0;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .total-row strong {
+            color: var(--text);
+        }
+
+        .total-row:last-child strong {
+            color: var(--blue);
+            font-size: 19px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+        }
+
+        .submit-btn:disabled {
+            opacity: .65;
+            cursor: wait;
+        }
+
+        @media (max-width: 1150px) {
+            .vehicle-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content {
+                padding: 28px 24px 40px;
+            }
+
+            .topbar {
+                padding: 0 24px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 14px 18px;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .brand {
+                padding: 0;
+            }
+
+            .brand-icon {
+                width: 37px;
+                height: 37px;
+            }
+
+            .brand h2 {
+                font-size: 19px;
+            }
+
+            .nav-label, .nav-link, .sidebar-bottom {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                height: 61px;
+                padding: 0 18px;
+            }
+
+            .content {
+                padding: 22px 15px 35px;
+            }
+
+            .hero {
+                padding: 27px 23px;
+                min-height: 200px;
+            }
+
+            .hero-visual {
+                width: 100px;
+                font-size: 64px;
+            }
+
+            .hero-visual::after {
+                width: 100px;
+            }
+
+            .stats {
+                gap: 9px;
+            }
+
+            .stat-card {
+                padding: 14px 10px;
+                gap: 8px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 17px;
+            }
+
+            .stat-card h3 {
+                font-size: 20px;
+            }
+
+            .stat-card p {
+                font-size: 10px;
+            }
+
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vehicle-art {
+                height: 175px;
+            }
+
+            .section-heading h2 {
+                font-size: 19px;
+            }
+
+            .top-actions {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .hero-visual {
+                display: none;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .status-pill {
+                font-size: 0;
+                padding: 10px;
+            }
+
+            .status-dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .content {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
         }
     </style>
 </head>
+
 <body>
+<div class="layout">
 
-    <header>
-        <h1>🚗 Vehicle Management System</h1>
-        <nav>
-            <a href="#" class="btn">Dashboard</a>
-        </nav>
-    </header>
-
-    <div class="container">
-        <div class="hero">
-            <h2>Welcome to Your Vehicle System</h2>
-            <p>Track, manage, and audit your complete inventory in one single panel.</p>
-        </div>
-
-        <div class="grid">
-            <div class="card">
-                <h3>View Fleet</h3>
-                <p>Browse through your complete digital registry of active vehicles.</p>
-                <a href="#" class="btn">Open Registry</a>
-            </div>
-
-            <div class="card">
-                <h3>Add New Vehicle</h3>
-                <p>Register a new car, truck, or motorcycle into the database.</p>
-                <a href="#" class="btn">Add Vehicle</a>
-            </div>
-
-            <div class="card">
-                <h3>System Logs</h3>
-                <p>Monitor system modifications, audits, and database state updates.</p>
-                <a href="#" class="btn">View Logs</a>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">🚘</div>
+            <div>
+                <h2>Velora</h2>
+                <small>VEHICLE RENTALS</small>
             </div>
         </div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <a class="nav-link active" href="#dashboard">
+            <span>▦</span> Dashboard
+        </a>
+        <a class="nav-link" href="#vehicles">
+            <span>🚗</span> Our Vehicles
+        </a>
+        <a class="nav-link" href="#vehicles">
+            <span>📅</span> Book a Vehicle
+        </a>
+
+        <div class="sidebar-bottom">
+            <strong>Velora Rentals</strong>
+            Your journey, our priority.
+            <br>Premium mobility made simple.
+        </div>
+    </aside>
+
+    <main class="main" id="dashboard">
+        <header class="topbar">
+            <div class="breadcrumb">Workspace &nbsp; / &nbsp; <strong>Dashboard</strong></div>
+
+            <div class="top-actions">
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    API CONNECTED
+                </div>
+                <div class="avatar">V</div>
+            </div>
+        </header>
+
+        <div class="content">
+
+            <section class="hero">
+                <div class="hero-copy">
+                    <div class="eyebrow">YOUR JOURNEY STARTS HERE</div>
+                    <h1>Find the perfect ride for every journey.</h1>
+                    <p>Explore our collection, compare daily rates and book your next ride in just a few clicks.</p>
+                </div>
+                <div class="hero-visual" aria-hidden="true">🚙</div>
+            </section>
+
+            <section class="stats">
+                <div class="stat-card">
+                    <div class="stat-icon">🚘</div>
+                    <div>
+                        <p>Total vehicles</p>
+                        <h3 id="totalVehicles">—</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <p>Available now</p>
+                        <h3 id="availableVehicles">—</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">₹</div>
+                    <div>
+                        <p>Starting from / day</p>
+                        <h3 id="startingPrice">—</h3>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-heading" id="vehicles">
+                <div>
+                    <h2>Explore our fleet</h2>
+                    <p>Choose your vehicle and get ready to go.</p>
+                </div>
+                <div class="count-label" id="resultCount">Loading...</div>
+            </div>
+
+            <div id="pageMessage" class="message" role="status" aria-live="polite"></div>
+
+            <section class="filters">
+                <div class="search-wrap">
+                    <span class="search-symbol">⌕</span>
+                    <input class="field" id="searchInput" type="search"
+                           placeholder="Search vehicle or brand...">
+                </div>
+
+                <select class="field" id="fuelFilter" aria-label="Filter by fuel type">
+                    <option value="">All fuel types</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+
+                <select class="field" id="availabilityFilter" aria-label="Filter availability">
+                    <option value="">All vehicles</option>
+                    <option value="true">Available only</option>
+                    <option value="false">Unavailable</option>
+                </select>
+
+                <button class="btn btn-secondary" id="resetFilters" type="button">
+                    Reset
+                </button>
+            </section>
+
+            <section class="vehicle-grid" id="vehicleGrid" aria-live="polite">
+                <div class="loader">Loading vehicles from your Django API...</div>
+            </section>
+
+            <footer class="footer">
+                © <span id="currentYear"></span> Velora Vehicle Rentals. All rights reserved.
+            </footer>
+        </div>
+    </main>
+</div>
+
+<div class="modal" id="bookingModal" role="dialog"
+     aria-modal="true" aria-labelledby="bookingTitle">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <h2 id="bookingTitle">Reserve your ride</h2>
+                <p>Fill in your details to confirm the booking.</p>
+            </div>
+            <button class="close-btn" id="closeModal" type="button"
+                    aria-label="Close booking form">×</button>
+        </div>
+
+        <div class="selected-vehicle">
+            <div class="mini-car">🚘</div>
+            <div>
+                <h3 id="selectedVehicleName">Vehicle</h3>
+                <p id="selectedVehicleRate">₹0 / day</p>
+            </div>
+        </div>
+
+        <form id="bookingForm">
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label for="customerName">Full name</label>
+                    <input class="field" id="customerName" name="customer_name"
+                           type="text" maxlength="100" required
+                           placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group full">
+                    <label for="customerPhone">10-digit phone number</label>
+                    <input class="field" id="customerPhone" name="customer_phone"
+                           type="tel" inputmode="numeric" pattern="[0-9]{10}"
+                           maxlength="10" minlength="10" required
+                           placeholder="9876543210">
+                </div>
+
+                <div class="form-group">
+                    <label for="startDate">Pickup date</label>
+                    <input class="field" id="startDate" name="start_date"
+                           type="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate">Return date</label>
+                    <input class="field" id="endDate" name="end_date"
+                           type="date" required>
+                </div>
+            </div>
+
+            <div class="total-box">
+                <div class="total-row">
+                    <span>Price per day</span>
+                    <strong id="dailyRate">₹0</strong>
+                </div>
+                <div class="total-row">
+                    <span>Rental duration</span>
+                    <strong id="rentalDays">—</strong>
+                </div>
+                <div class="total-row">
+                    <span>Estimated total</span>
+                    <strong id="estimatedTotal">₹0</strong>
+                </div>
+            </div>
+
+            <div id="bookingMessage" class="message" role="alert" aria-live="polite"></div>
+
+            <button class="btn submit-btn" id="submitBooking" type="submit">
+                Confirm Booking →
+            </button>
+        </form>
     </div>
+</div>
 
-    <footer>
-        &copy; 2026 Vehicle System Administration. Powered by Render.
-    </footer>
+<script>
+    // Django REST Framework API endpoints
+    const VEHICLES_API = "/api/vehicles/";
+    const BOOKINGS_API = "/api/bookings/";
 
+    let vehicles = [];
+    let selectedVehicle = null;
+    let bookingInProgress = false;
+
+    const grid = document.getElementById("vehicleGrid");
+    const pageMessage = document.getElementById("pageMessage");
+    const bookingMessage = document.getElementById("bookingMessage");
+    const modal = document.getElementById("bookingModal");
+    const bookingForm = document.getElementById("bookingForm");
+
+    document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+    function escapeHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, function (char) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[char];
+        });
+    }
+
+    function formatMoney(value) {
+        const amount = Number(value);
+        if (!Number.isFinite(amount)) return "₹0";
+
+        return "₹" + amount.toLocaleString("en-IN", {
+            maximumFractionDigits: 2
+        });
+    }
+
+    function showMessage(element, message, type) {
+        element.textContent = message;
+        element.className = "message show " + type;
+    }
+
+    function hideMessage(element) {
+        element.textContent = "";
+        element.className = "message";
+    }
+
+    async function apiRequest(url, options = {}) {
+        const response = await fetch(url, {
+            ...options,
+            headers: {
+                "Accept": "application/json",
+                ...(options.body ? { "Content-Type": "application/json" } : {}),
+                ...(options.headers || {})
+            }
+        });
+
+        if (!response.ok) {
+            let detail = "Request failed (" + response.status + ").";
+
+            try {
+                const data = await response.json();
+
+                if (data.detail) {
+                    detail = data.detail;
+                } else {
+                    const errors = Object.entries(data).map(([key, value]) => {
+                        const text = Array.isArray(value)
+                            ? value.join(" ")
+                            : typeof value === "string"
+                                ? value
+                                : JSON.stringify(value);
+
+                        return key + ": " + text;
+                    });
+
+                    if (errors.length) detail = errors.join(" | ");
+                }
+            } catch (_) {
+                // Keep the default error message.
+            }
+
+            throw new Error(detail);
+        }
+
+        if (response.status === 204) return null;
+        return response.json();
+    }
+
+    async function loadVehicles() {
+        grid.innerHTML = '<div class="loader">Loading vehicles...</div>';
+
+        try {
+            const data = await apiRequest(VEHICLES_API);
+
+            // Supports standard DRF lists and paginated responses.
+            vehicles = Array.isArray(data) ? data : (data.results || []);
+
+            updateStats();
+            renderVehicles();
+
+        } catch (error) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div>⚠️</div>
+                    <h3>Unable to load vehicles</h3>
+                    <p>${escapeHTML(error.message)}</p>
+                    <br>
+                    <button class="btn" type="button" onclick="loadVehicles()">
+                        Try again
+                    </button>
+                </div>`;
+
+            document.getElementById("resultCount").textContent = "API error";
+            showMessage(
+                pageMessage,
+                "Could not connect to the vehicles API. Check your Django server and /api/vehicles/ endpoint.",
+                "error"
+            );
+        }
+    }
+
+    function updateStats() {
+        const available = vehicles.filter(
+            vehicle => vehicle.is_available === true
+        );
+
+        const prices = available
+            .map(vehicle => Number(vehicle.price_per_day))
+            .filter(price => Number.isFinite(price) && price >= 0);
+
+        document.getElementById("totalVehicles").textContent =
+            vehicles.length;
+
+        document.getElementById("availableVehicles").textContent =
+            available.length;
+
+        document.getElementById("startingPrice").textContent =
+            prices.length ? formatMoney(Math.min(...prices)) : "—";
+    }
+
+    function getVehicleEmoji(vehicle) {
+        const fuel = String(vehicle.fuel_type || "").toLowerCase();
+
+        if (fuel === "electric") return "🚙";
+        if (fuel === "hybrid") return "🚘";
+        return "🚗";
+    }
+
+    function renderVehicles() {
+        const search = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const fuel = document.getElementById("fuelFilter").value;
+        const availability = document.getElementById("availabilityFilter").value;
+
+        const filtered = vehicles.filter(vehicle => {
+            const searchable = [
+                vehicle.name,
+                vehicle.brand,
+                vehicle.year,
+                vehicle.fuel_type
+            ].join(" ").toLowerCase();
+
+            const matchesSearch = searchable.includes(search);
+            const matchesFuel = !fuel || vehicle.fuel_type === fuel;
+
+            const matchesAvailability =
+                availability === "" ||
+                String(vehicle.is_available) === availability;
+
+            return matchesSearch && matchesFuel && matchesAvailability;
+        });
+
+        document.getElementById("resultCount").textContent =
+            filtered.length + (filtered.length === 1 ? " vehicle" : " vehicles");
+
+        if (!filtered.length) {
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div>🔎</div>
+                    <h3>No vehicles found</h3>
+                    <p>Try changing your search or filters.</p>
+                </div>`;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(vehicle => {
+            const available = vehicle.is_available === true;
+            const name = [vehicle.brand, vehicle.name].filter(Boolean).join(" ");
+            const price = Number(vehicle.price_per_day);
+
+            return `
+                <article class="vehicle-card">
+                    <div class="vehicle-art">
+                        <span class="vehicle-number">
+                            VEHICLE #${escapeHTML(vehicle.id)}
+                        </span>
+
+                        <span class="availability ${available ? "" : "unavailable"}">
+                            ${available ? "● Available" : "● Unavailable"}
+                        </span>
+
+                        <div class="vehicle-emoji" aria-hidden="true">
+                            ${getVehicleEmoji(vehicle)}
+                        </div>
+                    </div>
+
+                    <div class="vehicle-info">
+                        <div class="vehicle-brand">
+                            ${escapeHTML(vehicle.brand)}
+                        </div>
+
+                        <h3>${escapeHTML(vehicle.name)}</h3>
+
+                        <div class="vehicle-specs">
+                            <span class="spec">📅 ${escapeHTML(vehicle.year)}</span>
+                            <span class="spec">⛽ ${escapeHTML(vehicle.fuel_type)}</span>
+                        </div>
+
+                        <div class="vehicle-footer">
+                            <div class="price">
+                                ${formatMoney(price)}
+                                <small>/ day</small>
+                            </div>
+
+                            <button
+                                class="btn book-btn"
+                                type="button"
+                                data-book-id="${escapeHTML(vehicle.id)}"
+                                ${available ? "" : "disabled"}
+                            >
+                                ${available ? "Book now →" : "Unavailable"}
+                            </button>
+                        </div>
+                    </div>
+                </article>`;
+        }).join("");
+    }
+
+    function getLocalDateString(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+
+    function openBooking(vehicleId) {
+        selectedVehicle = vehicles.find(
+            vehicle => String(vehicle.id) === String(vehicleId)
+        );
+
+        if (!selectedVehicle || selectedVehicle.is_available !== true) {
+            showMessage(pageMessage, "This vehicle is not available for booking.", "error");
+            return;
+        }
+
+        hideMessage(pageMessage);
+        hideMessage(bookingMessage);
+        bookingForm.reset();
+
+        const today = getLocalDateString(new Date());
+
+        document.getElementById("startDate").min = today;
+        document.getElementById("endDate").min = today;
+
+        document.getElementById("selectedVehicleName").textContent =
+            selectedVehicle.brand + " " + selectedVehicle.name;
+
+        document.getElementById("selectedVehicleRate").textContent =
+            formatMoney(selectedVehicle.price_per_day) + " per day";
+
+        document.getElementById("dailyRate").textContent =
+            formatMoney(selectedVehicle.price_per_day);
+
+        document.getElementById("rentalDays").textContent = "—";
+        document.getElementById("estimatedTotal").textContent = "₹0";
+
+        document.getElementById("submitBooking").disabled = false;
+        document.getElementById("submitBooking").textContent =
+            "Confirm Booking →";
+
+        modal.classList.add("open");
+        document.getElementById("customerName").focus();
+    }
+
+    function closeBooking() {
+        if (bookingInProgress) return;
+
+        modal.classList.remove("open");
+        selectedVehicle = null;
+    }
+
+    function updateBookingTotal() {
+        if (!selectedVehicle) return;
+
+        const startValue = document.getElementById("startDate").value;
+        const endValue = document.getElementById("endDate").value;
+        const rate = Number(selectedVehicle.price_per_day);
+
+        const start = startValue
+            ? new Date(startValue + "T00:00:00")
+            : null;
+
+        const end = endValue
+            ? new Date(endValue + "T00:00:00")
+            : null;
+
+        document.getElementById("rentalDays").textContent = "—";
+        document.getElementById("estimatedTotal").textContent = "₹0";
+
+        if (!start || !end || end <= start) return;
+
+        const days = Math.round((end - start) / 86400000);
+        const total = days * rate;
+
+        document.getElementById("rentalDays").textContent =
+            days + (days === 1 ? " day" : " days");
+
+        document.getElementById("estimatedTotal").textContent =
+            formatMoney(total);
+    }
+
+    document.getElementById("startDate").addEventListener("change", function () {
+        const startValue = this.value;
+        const endInput = document.getElementById("endDate");
+
+        endInput.min = startValue || getLocalDateString(new Date());
+
+        if (endInput.value && endInput.value <= startValue) {
+            endInput.value = "";
+        }
+
+        updateBookingTotal();
+    });
+
+    document.getElementById("endDate").addEventListener("change", updateBookingTotal);
+
+    document.getElementById("searchInput").addEventListener("input", renderVehicles);
+    document.getElementById("fuelFilter").addEventListener("change", renderVehicles);
+    document.getElementById("availabilityFilter").addEventListener("change", renderVehicles);
+
+    document.getElementById("resetFilters").addEventListener("click", function () {
+        document.getElementById("searchInput").value = "";
+        document.getElementById("fuelFilter").value = "";
+        document.getElementById("availabilityFilter").value = "";
+        renderVehicles();
+    });
+
+    grid.addEventListener("click", function (event) {
+        const button = event.target.closest("[data-book-id]");
+        if (button && !button.disabled) {
+            openBooking(button.dataset.bookId);
+        }
+    });
+
+    document.getElementById("closeModal").addEventListener("click", closeBooking);
+
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal) closeBooking();
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && modal.classList.contains("open")) {
+            closeBooking();
+        }
+    });
+
+    bookingForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (bookingInProgress || !selectedVehicle) return;
+
+        hideMessage(bookingMessage);
+
+        const customerName =
+            document.getElementById("customerName").value.trim();
+
+        const customerPhone =
+            document.getElementById("customerPhone").value.trim();
+
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        if (!customerName) {
+            showMessage(bookingMessage, "Please enter your full name.", "error");
+            return;
+        }
+
+        if (!/^[0-9]{10}$/.test(customerPhone)) {
+            showMessage(
+                bookingMessage,
+                "Please enter a valid 10-digit phone number.",
+                "error"
+            );
+            return;
+        }
+
+        const today = getLocalDateString(new Date());
+
+        if (!startDate || !endDate || startDate < today || endDate <= startDate) {
+            showMessage(
+                bookingMessage,
+                "Choose a valid pickup date and a return date after pickup.",
+                "error"
+            );
+            return;
+        }
+
+        if (selectedVehicle.is_available !== true) {
+            showMessage(
+                bookingMessage,
+                "This vehicle is no longer available. Please choose another vehicle.",
+                "error"
+            );
+            return;
+        }
+
+        const submitButton = document.getElementById("submitBooking");
+        bookingInProgress = true;
+        submitButton.disabled = true;
+        submitButton.textContent = "Processing booking...";
+
+        try {
+            const booking = await apiRequest(BOOKINGS_API, {
+                method: "POST",
+                body: JSON.stringify({
+                    vehicle: selectedVehicle.id,
+                    customer_name: customerName,
+                    customer_phone: customerPhone,
+                    start_date: startDate,
+                    end_date: endDate
+                })
+            });
+
+            const bookedName =
+                selectedVehicle.brand + " " + selectedVehicle.name;
+
+            const amount = booking.total_amount ??
+                (Math.round(
+                    (new Date(endDate + "T00:00:00") -
+                     new Date(startDate + "T00:00:00")) / 86400000
+                ) * Number(selectedVehicle.price_per_day));
+
+            modal.classList.remove("open");
+
+            showMessage(
+                pageMessage,
+                "Booking successful! " + bookedName +
+                " has been booked for " + customerName +
+                ". Total amount: " + formatMoney(amount) + ".",
+                "success"
+            );
+
+            await loadVehicles();
+
+        } catch (error) {
+            showMessage(
+                bookingMessage,
+                "Booking failed: " + error.message,
+                "error"
+            );
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Try Again →";
+
+        } finally {
+            bookingInProgress = false;
+        }
+    });
+
+    // Load real vehicle records from Django when the page opens.
+    loadVehicles();
+</script>
 </body>
 </html>
